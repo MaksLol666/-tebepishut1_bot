@@ -1,1 +1,1 @@
-# empty package marker
+# empty file (обязательно должен существовать)
