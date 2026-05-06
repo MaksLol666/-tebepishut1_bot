@@ -10,7 +10,6 @@ async def init_db():
         await db.execute("""
         CREATE TABLE IF NOT EXISTS users (
             user_id INTEGER PRIMARY KEY,
-            referrals INTEGER DEFAULT 0,
             last_active INTEGER DEFAULT 0
         )
         """)
@@ -21,7 +20,6 @@ async def init_db():
             to_user INTEGER,
             from_user INTEGER,
             text TEXT,
-            replied INTEGER DEFAULT 0,
             created_at INTEGER
         )
         """)
@@ -39,4 +37,13 @@ async def update_user(user_id: int):
             "UPDATE users SET last_active=? WHERE user_id=?",
             (int(time.time()), user_id)
         )
+        await db.commit()
+
+
+async def save_message(to_user: int, from_user: int, text: str):
+    async with aiosqlite.connect(DB_PATH) as db:
+        await db.execute("""
+        INSERT INTO messages (to_user, from_user, text, created_at)
+        VALUES (?, ?, ?, ?)
+        """, (to_user, from_user, text, int(time.time())))
         await db.commit()
