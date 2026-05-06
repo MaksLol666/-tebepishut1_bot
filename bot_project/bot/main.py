@@ -1,14 +1,17 @@
 import asyncio
 import logging
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from bot.loader import bot, dp
 from bot.db.database import init_db
 
-from bot.handlers import start, link, reply, admin
+from bot.handlers import (
+    start,
+    link,
+    reply,
+    admin,
+    menu,
+    fallback
+)
 
 
 async def main():
@@ -20,6 +23,10 @@ async def main():
     dp.include_router(link.router)
     dp.include_router(reply.router)
     dp.include_router(admin.router)
+
+    # 🔥 ДОБАВЛЕНО:
+    dp.include_router(menu.router)
+    dp.include_router(fallback.router)
 
     await dp.start_polling(bot)
 
