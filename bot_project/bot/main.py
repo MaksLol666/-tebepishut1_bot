@@ -1,5 +1,9 @@
 import asyncio
 import logging
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from bot.loader import bot, dp
 from bot.db.database import init_db
