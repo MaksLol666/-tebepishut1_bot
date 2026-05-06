@@ -31,3 +31,8 @@ async def process_reply(message: Message, state: FSMContext, bot: Bot):
     await state.clear()
 
     await message.answer("✅ Отправлено")
+
+
+@router.callback_query()
+async def unknown_callback(call: CallbackQuery):
+    await call.answer("❗ Кнопка устарела", show_alert=True)
