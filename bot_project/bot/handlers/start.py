@@ -13,6 +13,6 @@ async def start(message: Message):
     await update_user(message.from_user.id)
 
     await message.answer(
-        "🤫 Тебе пишут\n\nПолучай анонимные сообщения 👀",
+        "🤫 Тебе пишут\n\nВыбери действие 👇",
         reply_markup=menu
     )
