@@ -10,7 +10,7 @@ sys.path.append(BASE_DIR)
 from aiogram import Dispatcher
 from bot.loader import bot
 from bot.db.database import init_db
-
+from bot.handlers.start import router as start_router
 # handlers
 from bot.handlers.start import router as start_router
 from bot.handlers.link import router as link_router
