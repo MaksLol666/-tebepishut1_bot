@@ -4,7 +4,7 @@ from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 
 from bot.keyboards.menu import menu
-from bot.states.reply import SendMessage
+from bot.states.reply import ReplyState
 
 router = Router()
 
@@ -25,7 +25,7 @@ async def start(message: Message, state: FSMContext):
             return
 
         await state.update_data(target_id=target_id)
-        await state.set_state(SendMessage.waiting_for_message)
+        await state.set_state(ReplyState.waiting_for_message)
 
         await message.answer(
             "✍️ Напиши анонимное сообщение"
