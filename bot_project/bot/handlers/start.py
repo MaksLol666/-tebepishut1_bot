@@ -3,8 +3,8 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 
-from keyboards.menu import menu
-from states.reply import SendMessage
+from bot.keyboards.menu import menu
+from bot.states.reply import SendMessage
 
 router = Router()
 
