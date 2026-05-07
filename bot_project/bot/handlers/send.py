@@ -3,7 +3,7 @@ from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from states.reply import SendMessage
+from bot.states.reply import SendMessage
 
 router = Router()
 
