@@ -9,19 +9,27 @@ router = Router()
 
 @router.callback_query(F.data.startswith("reply_"))
 async def reply(call: CallbackQuery, state: FSMContext):
+
     target = int(call.data.split("_")[1])
 
     await state.update_data(target=target)
-    await state.set_state(ReplyState.waiting_text)
+    await state.set_state(ReplyState.waiting_for_message)
 
     await call.message.answer("✍️ Напиши ответ")
 
+    await call.answer()
 
-@router.message(ReplyState.waiting_text)
+
+@router.message(ReplyState.waiting_for_message)
 async def process_reply(message: Message, state: FSMContext, bot: Bot):
 
     data = await state.get_data()
-    target = data["target"]
+    target = data.get("target")
+
+    if not target:
+        await message.answer("❌ Ошибка: не найден получатель")
+        await state.clear()
+        return
 
     await bot.send_message(
         target,
