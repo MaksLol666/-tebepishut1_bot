@@ -1,10 +1,28 @@
 import asyncio
 import logging
+import sys
+import os
 
-from bot.loader import bot, dp
+# 🔥 FIX: чтобы bothost всегда видел пакет
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+
+from aiogram import Dispatcher
+from bot.loader import bot
 from bot.db.database import init_db
 
-from bot.handlers import start, link, reply, admin, menu, inbox, send, fallback
+# handlers
+from bot.handlers.start import router as start_router
+from bot.handlers.link import router as link_router
+from bot.handlers.reply import router as reply_router
+from bot.handlers.admin import router as admin_router
+from bot.handlers.menu import router as menu_router
+from bot.handlers.inbox import router as inbox_router
+from bot.handlers.send import router as send_router
+from bot.handlers.fallback import router as fallback_router
+
+
+dp = Dispatcher()
 
 
 async def main():
@@ -12,17 +30,17 @@ async def main():
 
     await init_db()
 
-    # 🔥 ОБЯЗАТЕЛЬНО РЕГИСТРАЦИЯ ROUTERS
-    dp.include_router(start.router)
-    dp.include_router(link.router)
-    dp.include_router(reply.router)
-    dp.include_router(admin.router)
+    # 🔥 HARD REGISTRATION (самый стабильный способ)
+    dp.include_router(start_router)
+    dp.include_router(link_router)
+    dp.include_router(reply_router)
+    dp.include_router(admin_router)
+    dp.include_router(menu_router)
+    dp.include_router(inbox_router)
+    dp.include_router(send_router)
+    dp.include_router(fallback_router)
 
-    # если есть:
-    dp.include_router(menu.router)
-    dp.include_router(inbox.router)
-    dp.include_router(send.router)
-    dp.include_router(fallback.router)
+    print("✅ BOT STARTED SUCCESSFULLY")
 
     await dp.start_polling(bot)
 
