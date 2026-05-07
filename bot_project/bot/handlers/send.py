@@ -3,12 +3,12 @@ from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from bot.states.reply import SendMessage
+from bot.states.reply import ReplyState
 
 router = Router()
 
 
-@router.message(SendMessage.waiting_for_message)
+@router.message(ReplyState.waiting_for_message)
 async def process_message(message: Message, state: FSMContext):
 
     data = await state.get_data()
