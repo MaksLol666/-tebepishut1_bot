@@ -5,15 +5,10 @@ router = Router()
 
 
 @router.message(F.text == "📬 Мои сообщения")
-async def my_messages(message: Message):
-    await message.answer("📬 У тебя пока нет сообщений")
+async def inbox(message: Message):
+    await message.answer("📬 Inbox пока пуст")
 
 
 @router.message(F.text == "👥 Пригласить")
 async def invite(message: Message):
-    await message.answer("🔗 Поделись своей ссылкой из меню")
-
-
-@router.message(F.text == "📩 Моя ссылка")
-async def fake_link(message: Message):
-    await message.answer("ℹ️ Ссылка генерируется в разделе 'Моя ссылка'")
+    await message.answer("🔗 Поделись своей ссылкой")
