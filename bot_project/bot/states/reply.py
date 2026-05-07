@@ -1,5 +1,5 @@
 from aiogram.fsm.state import StatesGroup, State
 
 
-class SendMessage(StatesGroup):
+class ReplyState(StatesGroup):
     waiting_for_message = State()
