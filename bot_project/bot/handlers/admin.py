@@ -1,6 +1,7 @@
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
+from bot.config import ADMIN_ID
 
 import aiosqlite
 
